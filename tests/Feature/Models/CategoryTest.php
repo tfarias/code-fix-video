@@ -93,14 +93,18 @@ class CategoryTest extends TestCase
             'description' => 'test_description_del',
             'is_active' => false
         ]);
-
-
         $category->delete();
+
+        $this->assertNull(Category::find($category->id));
 
         $this->assertSoftDeleted('categories', [
             'description' => 'test_description_del'
         ]);
 
+        $category->restore();
+        $this->assertNotNull(Category::find($category->id));
+
+        $this->assertDatabaseHas('categories', ['id' => $category->id]);
     }
 
     /**

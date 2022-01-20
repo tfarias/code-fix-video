@@ -87,16 +87,20 @@ class GenreTest extends TestCase
     public function delete_genre()
     {
         $genre = Genre::factory()->create([
-            'name' => 'test_description_del',
             'is_active' => false
         ]);
-
-
         $genre->delete();
 
+        $this->assertNull(Genre::find($genre->id));
+
         $this->assertSoftDeleted('genres', [
-            'name' => 'test_description_del'
+            'id' => $genre->id
         ]);
+
+        $genre->restore();
+        $this->assertNotNull(Genre::find($genre->id));
+
+        $this->assertDatabaseHas('genres', ['id' => $genre->id]);
 
     }
 
