@@ -110,6 +110,7 @@ class CategoryTest extends TestCase
     {
         $category = Category::factory()->create();
         $this->assertNotEmpty($category->id);
+        $this->assertEquals(36, strlen($category->id));
 
         $id = 'uuid_teste1';
         $category = Category::factory()->create(['id' => $id]);

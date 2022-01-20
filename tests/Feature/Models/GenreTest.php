@@ -107,6 +107,7 @@ class GenreTest extends TestCase
     {
         $genre = Genre::factory()->create();
         $this->assertNotEmpty($genre->id);
+        $this->assertEquals(36, strlen($genre->id));
 
         $id = 'uuid_teste1';
         $genre = Genre::factory()->create(['id' => $id]);
